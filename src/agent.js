@@ -3,7 +3,8 @@ import _superagent from "superagent";
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
-const API_ROOT = "http://localhost:3000/api";
+// const API_ROOT = "http://localhost:3000/api";
+const API_ROOT = "http://conduit.productionready.io/api";
 
 let token = null;
 
