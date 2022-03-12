@@ -1,6 +1,4 @@
-import { Action } from "history";
-import { agent } from "./agent";
-
+import agent from "./agent";
 import {
   ASYNC_START,
   ASYNC_END,
@@ -15,11 +13,13 @@ import {
 //view => dispatch (action ) => reducer = > Store -> redux
 //view => dispatch (action ) => (middleware) = >reducer =>  Store -> middleware
 
-//view => dispatch => middleware => reducer => store
+//view => dispatch => middleware => reducer => store      {async_start, subtype: login}
+//view(login) => dispatch (login ) => middleware(login) = > reducer(async_start) => store (async_start)
 
 const promiseMiddleware = (store) => (next) => (action) => {
   if (isPromise(action.payload)) {
     store.dispatch({ type: ASYNC_START, subtype: action.type });
+
     action.payload.then(
       (res) => {
         action.payload = res;
@@ -55,3 +55,5 @@ const localStorageMiddleware = (store) => (next) => (action) => {
 function isPromise(v) {
   return v && typeof v.then === "function";
 }
+
+export { promiseMiddleware, localStorageMiddleware };
