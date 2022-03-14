@@ -18,10 +18,13 @@ import {
 
 const promiseMiddleware = (store) => (next) => (action) => {
   if (isPromise(action.payload)) {
+    console.log("herere");
     store.dispatch({ type: ASYNC_START, subtype: action.type });
 
+    console.log("herere");
     action.payload.then(
       (res) => {
+        console.log("herere");
         action.payload = res;
         store.dispatch({ type: ASYNC_END, promise: action.payload });
         store.dispatch(action);
