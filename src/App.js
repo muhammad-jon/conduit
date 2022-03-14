@@ -40,7 +40,7 @@ const App = () => {
       <div>
         <Header
           appName={commonState?.appName}
-          current={commonState?.currentUser}
+          currentUser={commonState?.currentUser}
         />
 
         <Routes>
@@ -60,7 +60,10 @@ const App = () => {
     );
   }
   return (
-    <Header appName={commonState?.appName} current={commonState?.currentUser} />
+    <Header
+      appName={commonState?.appName}
+      currentUser={commonState?.currentUser}
+    />
   );
 };
 

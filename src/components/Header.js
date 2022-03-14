@@ -58,12 +58,8 @@ const LoggedOutView = ({ currentUser }) => {
     );
   } else return null;
 };
-const currentUser = {
-  username: "Muhammad",
-  image: "http://i.imgur.com/Qr71crq.jpg",
-};
 
-const Header = ({ appName }) => {
+const Header = ({ appName, currentUser }) => {
   return (
     <nav className="navbar navbar-light">
       <div className="container">
