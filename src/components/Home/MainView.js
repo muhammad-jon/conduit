@@ -63,7 +63,7 @@ const MainView = () => {
     dispatch({ type: CHANGE_TAB, tab, pager, payload });
   };
   return (
-    <>
+    <div className="col-md-9">
       <div className="feed-toggle">
         <ul className="nav nav-pills outline-active">
           <YourFeedTab
@@ -75,8 +75,14 @@ const MainView = () => {
           <TagFilterTab tag={articleList?.tag} />
         </ul>
       </div>
-      <ArticleList />
-    </>
+      <ArticleList
+        pager={articleList?.pager}
+        articles={articleList?.articles}
+        loading={articleList?.loading}
+        articlesCount={articleList?.articlesCount}
+        currentPage={articleList?.currentPage}
+      />
+    </div>
   );
 };
 
