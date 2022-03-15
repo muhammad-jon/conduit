@@ -43,7 +43,18 @@ const GlobalFeedTab = ({ onTabClicked, tab }) => {
     </li>
   );
 };
-
+const TagFilterTab = ({ tag }) => {
+  if (!tag) {
+    return null;
+  }
+  return (
+    <li className="nav-item">
+      <a className={"nav-link active"} href="">
+        {tag}
+      </a>
+    </li>
+  );
+};
 const MainView = () => {
   const dispatch = useDispatch();
   const { home, common, articleList } = useSelector((state) => state);
@@ -61,6 +72,7 @@ const MainView = () => {
             onTabClicked={onTabClicked}
           />
           <GlobalFeedTab tab={articleList?.tab} onTabClicked={onTabClicked} />
+          <TagFilterTab tag={articleList?.tag} />
         </ul>
       </div>
       <ArticleList />
