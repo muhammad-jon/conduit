@@ -79,7 +79,7 @@ const Articles = {
 
 // slug = url
 const Comments = {
-  forArticel: (slug) => requests.get(`/articles/${slug}/comments`),
+  forArticle: (slug) => requests.get(`/articles/${slug}/comments`),
   create: (slug, comment) =>
     requests.post(`/articles/${slug}/comments`, { comment }),
   delete: (slug, commentId) =>
@@ -89,7 +89,7 @@ const Comments = {
 const Profile = {
   follow: (username) => requests.post(`/profiles/${username}/follow`),
   get: (username) => requests.get(`/profiles/${username}`),
-  unfollow: (username) => requests.del(`profiles/${username}/follow`),
+  unfollow: (username) => requests.del(`/profiles/${username}/follow`),
 };
 
 export default {

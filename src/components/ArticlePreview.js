@@ -1,28 +1,69 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import agent from "../agent";
+import { useDispatch } from "react-redux";
+import {
+  ARTICLE_FAVORITED,
+  ARTICLE_UNFAVORITED,
+} from "../constants/actionTypes";
 
-const ArticlePreview = () => {
+const FAVORITED_CLASS = "btn btn-sm btn-primary";
+const NOT_FAVORITED_CLASS = "btn btn-sm btn-outline-primary";
+
+const ArticlePreview = ({ article }) => {
+  const dispatch = useDispatch();
+  const favoritedButtonClass = article?.favorited
+    ? FAVORITED_CLASS
+    : NOT_FAVORITED_CLASS;
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    if (!article?.favorited) {
+      dispatch({
+        type: ARTICLE_FAVORITED,
+        payload: agent.Articles.favorite(article.slug),
+      });
+    } else {
+      dispatch({
+        type: ARTICLE_UNFAVORITED,
+        payload: agent.Articles.unfavorite(article.slug),
+      });
+    }
+  };
   return (
     <>
       <div className="article-preview">
         <div className="article-meta">
-          <Link to="/profile">
-            <img src="http://i.imgur.com/Qr71crq.jpg" />
+          <Link to={`/@${article?.author?.username}`}>
+            <img src={article?.author?.image} />
           </Link>
           <div className="info">
-            <Link to="" className="author">
-              Eric Simons
+            <Link to={`/@${article?.author?.username}`} className="author">
+              {article?.author?.name}
             </Link>
-            <span className="date">January 20th</span>
+            <span className="date">
+              {new Date(article?.createdAt).toDateString()}
+            </span>
           </div>
-          <button className="btn btn-outline-primary btn-sm pull-xs-right">
-            <i className="ion-heart"></i> 29
-          </button>
+          <div className="pull-xs-right">
+            <button className={favoritedButtonClass} onClick={handleClick}>
+              <i className="ion-heart"></i> {article?.favoritesCount}
+            </button>
+          </div>
         </div>
-        <Link to="" className="preview-link">
-          <h1>How to build webapps that scale</h1>
-          <p>This is the description for the post.</p>
+        <Link to={`/article/${article?.slug}`} className="preview-link">
+          <h1>{article?.title}</h1>
+          <p>{article?.description}</p>
           <span>Read more...</span>
+          <ul className="tag-list">
+            {article?.tagList?.map((tag) => {
+              return (
+                <li className="tag-default tag-pill tag-outline" key={tag}>
+                  {tag}
+                </li>
+              );
+            })}
+          </ul>
         </Link>
       </div>
     </>
